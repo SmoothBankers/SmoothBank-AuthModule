@@ -30,9 +30,10 @@ public class JwtTokenProvider implements Serializable {
     // Calculating a week in milliseconds for validity
     private final Integer validityInMilliseconds = 7 * 24 * 60 * 60 * 1000;
 
-    public String generateToken(String username, UserRole role) {
+    public String generateToken(Integer userId, String username, UserRole role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", role);
+        claims.put("id", userId);
 
         Date now = new Date();
         Date expiration = new Date(now.getTime() + validityInMilliseconds);
